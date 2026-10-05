@@ -1,19 +1,10 @@
 import pandas as pd
 import numpy as np
 
-# Load dataset
 df = pd.read_csv("dataset/squats_landmarks.csv")
 
 
 def calculate_angle(a, b, c):
-    """
-    Calculates the angle at point B.
-
-    a = hip
-    b = knee
-    c = ankle
-    """
-
     a = np.array(a)
     b = np.array(b)
     c = np.array(c)
@@ -32,7 +23,6 @@ def calculate_angle(a, b, c):
     return angle
 
 
-# Calculate knee angle for every frame
 df["knee_angle"] = df.apply(
     lambda row: calculate_angle(
         [row["hip_x"], row["hip_y"], row["hip_z"]],
@@ -42,7 +32,6 @@ df["knee_angle"] = df.apply(
     axis=1
 )
 
-# Show some results
 print(df[["frame", "knee_angle"]].head(20))
 
 print("\nMinimum knee angle:", round(df["knee_angle"].min(), 2))
